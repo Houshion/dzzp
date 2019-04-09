@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>族谱书</title>
+		<link rel="stylesheet" type="text/css" href="./css/r-common.css"/>
+	<link rel="stylesheet" href="basicprimitives/js/jquery/ui-lightness/jquery-ui-1.10.2.custom.css"/>
+	<script type="text/javascript" src="basicprimitives/js/jquery/jquery-1.9.1.js"></script>
+	<script type="text/javascript" src="basicprimitives/js/jquery/jquery-ui-1.10.2.custom.min.js"></script>
+
+	<script type="text/javascript" src="basicprimitives/js/primitives.min.js?219"></script>
+	<link href="basicprimitives/css/primitives.latest.css?219" media="screen" rel="stylesheet" type="text/css"/>
+	<link href="./css/sweetalert2.min.css" media="screen" rel="stylesheet" type="text/css"/>
+</head>
+	<style type="text/css">
+		header{
+			background: #f5f5f5;
+			width: 100%;
+			height: 0.4rem;
+		}
+		.head{
+			height: 100%;
+			width: 12rem;
+			margin: 0 auto;
+			font-size: 0.14rem;
+			line-height: 0.4rem;
+			color: #666;
+		}
+		.head .left{
+			width: 0.78rem;
+			height: 100%;
+			font-size: 0rem;
+		}
+		.head .left a{
+			width: 50%;
+			display: inline-block;
+			font-size: 0.14rem;
+		}
+		.head a:hover{color: #FFC300;}
+		.head .right{
+			height: 100%;
+			font-size: 0rem;
+		}
+		.head .right b{
+			display: inline-block;
+			width: 1px;
+			height: 0.1rem;
+			background: #e5e5e5;
+			line-height: 0.16rem;
+		}
+		.head .right a{
+			width: 0.89rem;
+			display: inline-block;
+			font-size: 0.14rem;
+			text-align: center;
+		}
+		
+		#search{
+			height: 100%;
+			width: 12rem;
+			height: 0.38rem;
+			font-size: 0.16rem;
+			margin: 0.33rem auto 0.45rem;
+		}
+		#search .logo{
+			width: 1.62rem;
+			height: 0.38rem;
+			display: inline-block;
+			
+		}
+		#search .logo img{margin-top: -0.09rem;}
+		#search .search{
+			width: 5.58rem;
+			height: 0.38rem;
+			border: 1px solid #ffc300;
+			display: flex;
+		}
+		#search .search .sel{
+			width: 0.85rem;
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+			position: relative;
+		}
+		#search .search .sel ul{
+			position: absolute;
+			left: 0;
+			top:0.39rem ;
+			background: #fff;
+			border: 1px solid #e5e5e5;
+			width: 0.83rem;
+			height: 0.72rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			display: none;
+		}
+		#search .search .sel ul li{
+			width: 100%;
+			text-align: center;
+			padding: 7% 0;
+		}
+		#search .search .sel ul li:hover{background: #f5f5f5;}
+		#search .search .sel span{
+			border-right: 1px solid #e5e5e5;
+			width: 100%;
+			text-align: center;
+			background-image: url(../img/more.png);
+			background-repeat: no-repeat;
+			background-position: 90% center;
+			background-size: 10%;
+		}
+		#search .search .sel:hover  ul{display: block;}
+		#search .search .cont{
+			flex: 1;
+			display: flex;
+		}
+		#search .search .cont input{
+			border: none;
+			padding: 0.08rem 0.19rem 0.08rem 0.39rem;
+			flex: 1;
+			background-image: url(../img/search.png);
+			background-repeat: no-repeat;
+			background-position: 0.13rem center;
+			background-size: 4%;
+			font-size: 0.16rem;
+		}
+		#search .search .cont input::-webkit-input-placeholder {color: #BFBFBF}
+		#search .search .btn{
+			width: 1.19rem;
+			height: 100%;
+			background: #FFC300;
+			text-align: center;
+			line-height: 0.38rem;
+			cursor: pointer;
+		}
+		
+		#menu{
+			width: 100%;
+			height: 0.31rem;
+			border-bottom: 1px solid #e5e5e5;
+		}
+		#menu nav{
+			width: 12rem;
+			height: 100%;
+			margin: 0 auto;
+			font-size: 0.16rem;
+			display: flex;
+			justify-content: space-between;
+		}
+		#menu nav a:hover{
+			border-bottom: 3px solid #FFC300;
+			color: #FFC300;
+		}
+		
+		#local{
+			font-size: 0.16rem;
+			width: 11.6rem;
+			height: 0.4rem;
+			background: #FFC300;
+			margin: 0.19rem auto 0.35rem;
+			padding-left: 0.4rem;
+			line-height: 0.4rem;
+			background-image: url(../img/point.png);
+			background-repeat: no-repeat;
+			background-position: 0.2rem center;
+		}
+		
+		#about{
+			background: #f5f5f5;
+			font-size: 0.14rem;
+			position: fixed;
+			bottom: 0.5rem;
+			left: 0;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 1.6rem;
+		}
+		#about div{width: 30%;display: flex;justify-content: center;}
+		#about div li{margin-bottom: 3%;}
+		footer{
+			font-size: 0.14rem;
+			background: #333333;
+			color: #fff;
+			text-align: center;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 0.5rem;
+			line-height: 0.5rem;
+		}
+		#ui-view{
+			width: 1200px;
+			margin: auto;
+		}
+	</style>
+	<body>
+		<header>
+			<div class="head">
+				<p class="left">
+					<a href="#">注册</a>
+					<a href="#" class="text-right">登录</a>
+				</p>
+				<p class="right">
+					<a href="">个人中心</a>
+					<b></b>
+					<a href="">我的族谱</a>
+					<b></b>
+					<a href="">加入张氏</a>
+					<b></b>
+					<a href="">申请支系</a>
+				</p>
+			</div>
+		</header>
+		<div id="search">
+			<div class="logo left"><img src="../img/logo.png"/></div>
+			<div class="search left">
+				<div class="sel">
+					<span>成员</span>
+					<ul>
+						<li>成员</li>
+						<li>帖子</li>
+					</ul>
+				</div>
+				<div class="cont"><input type="text" name="" id="" value="" placeholder="输入名字"/></div>
+				<div class="btn">
+					搜索
+				</div>
+			</div>
+		</div>
+		<menu id="menu">
+			<nav>
+				<a href="">首页</a>
+				<a href="#xy_tree">族谱树</a>
+				<a href="">族谱书</a>
+				<a href="">张氏文化</a>
+				<a href="">张氏论坛</a>
+				<a href="">实时动态</a>
+				<a href="">实时动态</a>
+			</nav>
+		</menu>
+		<div id="local">首页>></div>
+		<!--config里面配置view-->
+		<div id="ui-view"></div>
+		<!---->
+		<div id="about">
+			<div class="cp">
+				<ul>
+					<li style="font-size: 0.16rem;">族谱有限公司</li>
+					<li><i>地址：</i>广东省广州市白云区234街道118号</li>
+					<li><i>乘车路线：</i>22路，256路，123路</li>
+				</ul>
+			</div>
+			<div id="link">
+				<ul>
+					<li><i>联系电话：</i>0769-88664852</li>
+					<li><i>E-mail：</i>0769-88664852</li>
+				</ul>
+			</div>
+		</div>
+		<footer>copyright© ：2006-2017 族谱有限公司  粤ICP备12345698号</footer>
+	</body>
+</html>
+<script type="text/javascript" src="./src/vipspa.js"></script>
+<script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="./js/sweetalert2.all.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    vipspa.start({
+      view: '#ui-view',
+      router: {
+        'xy_tree': {
+          templateUrl: './html/xy_tree.html',
+          controller: './js/app/xy_tree.js'
+        },
+        'defaults': 'xy_tree' //默认路由
+      },
+      errorTemplateId: '#error'  //可选的错误模板，用来处理加载html模块异常时展示错误内容
+    });
+
+  });
+</script>
